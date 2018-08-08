@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
+</head>
+
+<body>
+
+  <div class="wrap">
+    {% if login.prediction %}
+    <h1>You have successfully logged in!</h1>
+    {% else %}
+    <h1>You cannot log in :(</h1>
+    {% endif %}
+  </div>
+
+  <a href="/"><h2>Back to login</h2></a>
+  <a href="/train"><h2>Back to train</h2></a>
+
+
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{{ url_for('static',filename='js/ai_auth.js') }}">
+  </script>
+</body>
+
+</html>

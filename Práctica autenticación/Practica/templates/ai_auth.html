@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
+</head>
+
+<body>
+
+  <div class="wrap">
+    <form action="/login" method="post">
+      <input id="target" type="text" placeholder="type your phrase">
+      <input id="presionado" type="hidden" name="presionado">
+      <input id="vuelo" type="hidden" name="vuelo">
+    </form>
+  </div>
+
+
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{{ url_for('static',filename='js/ai_auth.js') }}">
+  </script>
+</body>
+
+</html>

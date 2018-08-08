@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>keypress demo</title>
+  <style>
+  fieldset {
+    margin-bottom: 1em;
+  }
+  input {
+    display: block;
+    margin-bottom: .25em;
+  }
+  #print-output {
+    width: 100%;
+  }
+  .print-output-line {
+    white-space: pre;
+    padding: 5px;
+    font-family: monaco, monospace;
+    font-size: .7em;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+
+  <form>
+    <fieldset>
+      <label for="target">Type Something:</label>
+      <input id="target" type="text">
+    </fieldset>
+    <fieldset>
+      <label for="key">Timestamp:</label>
+      <input id="key" type="text">
+    </fieldset>
+    <fieldset>
+      <label for="key">Tiempo de vuelo:</label>
+      <input id="vuelo" type="text">
+    </fieldset>
+
+  </form>
+
+  <script>
+  eventos = [];
+  tiempo_vuelo = [];
+  eventos_pulsar = [];
+  tiempo_presionado = [];
+
+  $( "#target" ).keydown(function( event ) {
+    // console.log(event);
+    eventos_pulsar.push(event);
+    if ( event.which == 13 ) {
+      event.preventDefault();
+    }
+  });
+
+  $( "#target" ).keyup(function( event ) {
+    // console.log(event);
+    eventos_pulsar.push(event);
+      if ( event.which == 13 ) {
+      event.preventDefault();
+    }
+
+    if (eventos.length > 0) {
+      var i;
+
+      // Calculo del tiempo de vuelo
+      for (i = eventos.length - 1; i > 0; i--) {
+        tiempo_vuelo.push(eventos[i].timeStamp - eventos[i - 1].timeStamp);
+      }
+      // Del array con los distintos valores para el tiempo de vuelo calculamos la media
+      if (tiempo_vuelo.length > 0){
+        var suma = 0, media = 0;
+        for (i = 0; i < tiempo_vuelo.length; i++) {
+          suma += tiempo_vuelo[i];
+        }
+        media = suma / tiempo_vuelo.length;
+        console.log("La media de tiempo de vuelo es de " + media);
+      }
+
+      // Calculo del tiempo que mantiene pulsadas las teclas
+      for (i = eventos_pulsar.length - 1; i > 0; i--) {
+        tiempo_presionado.push(eventos_pulsar[i].timeStamp - eventos_pulsar[i - 1].timeStamp);
+      }
+      // Media del tiempo que mantiene pulsadas las teclas
+      if (tiempo_presionado.length > 0){
+        var suma = 0, media = 0;
+        for (i = 0; i < tiempo_presionado.length; i++) {
+          suma += tiempo_presionado[i];
+        }
+        media = suma / tiempo_presionado.length;
+        console.log("La media de tiempo pulsado es de " + media);
+      }
+
+    }
+  });
+
+  $( "#target" ).keypress(function( event ) {
+    // console.log(event);
+    eventos.push(event);
+    if ( event.which == 13 ) {
+      event.preventDefault();
+    }
+    $("#key").val(event.timeStamp);
+  });
+
+
+</script>
+
+</body>
+</html>

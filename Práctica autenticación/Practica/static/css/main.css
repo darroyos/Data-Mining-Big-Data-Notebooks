@@ -1,0 +1,36 @@
+body {
+  background: #aeff70;
+  box-shadow: none;
+  transition: background 0.4s ease;
+}
+
+.wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: 50%;
+  transform: translate(-50%, -50%);
+}
+
+input {
+  outline: none;
+  border: none;
+  padding: 20px;
+  margin-bottom: 20px;
+  font-size: 24px;
+  box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.7);
+  transition: transform 0.1s cubic-bezier(0.67, -0.33, 0.62, 1.35), box-shadow 0.4s ease;
+}
+
+input:focus {
+  box-shadow: 0px 30px 1em -25px rgba(0, 0, 0, 0.4);
+  transform: scale(1.5, 1.5);
+}
+
+input::-webkit-input-placeholder {
+  transition: color 0.4s ease;
+}
+
+input:focus::-webkit-input-placeholder {
+  color: transparent;
+}

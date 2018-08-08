@@ -1,0 +1,9 @@
+wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py --user
+cd .local/bin
+./pip install virtualenv --user
+cd
+~/.local/bin/virtualenv env
+source env/bin/activate
+pip install jupyter
+pip install numpy
+

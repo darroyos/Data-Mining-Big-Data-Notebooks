@@ -1,0 +1,7 @@
+Name,Sex,Age,Country,Level
+Miguel,Hombre,34.0,España,A
+Javier,Hombre,23.0,Brasil,B
+Ana,Mujer,40.0,Italia,A
+Pablo,Hombre,,USA,C
+Eva,Mujer,23.0,Italia,A
+Esteban,Hombre,-2.0,Argentina,B

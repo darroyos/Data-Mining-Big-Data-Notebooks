@@ -1,0 +1,943 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Wine dataset}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Práctica 5 - Wine
+data-set}\label{pruxe1ctica-5---wine-data-set}
+
+\paragraph{David Arroyo Segovia}\label{david-arroyo-segovia}
+
+\subsubsection{Facultad de Informática - Universidad Complutense de
+Madrid}\label{facultad-de-informuxe1tica---universidad-complutense-de-madrid}
+
+\begin{itemize}
+\item
+  Crea un modelo para hacer machine learning con el Wine Data Set
+\item
+  Estas son las headers: \emph{header = {[}"target", "Alcohol",
+  "Malic\_acid", "Ash", "Alcalinity\_of\_ash", "Magnesium",
+  "Total\_phenols", "Flavanoids", "Nonflavanoid\_phenols",
+  "Proanthocyanins", "Color\_intensity", "Hue", "OD280\_OD315",
+  "Proline"{]}}
+\item
+  Utiliza varios métodos de entranamiento, con diferentes valores de
+  parámetros, hasta conseguir el mejor resultado (\textbf{random
+  forest}, \textbf{KNN}, \textbf{SVM}, \textbf{Adaboost},...
+  (http://scikitlearn.org/stable/modules/classes.html\#module-sklearn.ensemble)
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
+        
+        \PY{n}{header} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{target}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Alcohol}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Malic\PYZus{}acid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ash}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Alcalinity\PYZus{}of\PYZus{}ash}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Magnesium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PYZbs{}
+        \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total\PYZus{}phenols}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Flavanoids}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nonflavanoid\PYZus{}phenols}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Proanthocyanins}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Color\PYZus{}intensity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PYZbs{}
+        \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OD280\PYZus{}OD315}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Proline}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        
+        \PY{n}{wine\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wine.data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{names}\PY{o}{=}\PY{n}{header}\PY{p}{)}  \PY{c+c1}{\PYZsh{} leemos el dataset}
+        
+        \PY{n}{wine\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:}    target  Alcohol  Malic\_acid   Ash  Alcalinity\_of\_ash  Magnesium  \textbackslash{}
+        0       1    14.23        1.71  2.43               15.6        127   
+        1       1    13.20        1.78  2.14               11.2        100   
+        2       1    13.16        2.36  2.67               18.6        101   
+        3       1    14.37        1.95  2.50               16.8        113   
+        4       1    13.24        2.59  2.87               21.0        118   
+        
+           Total\_phenols  Flavanoids  Nonflavanoid\_phenols  Proanthocyanins  \textbackslash{}
+        0           2.80        3.06                  0.28             2.29   
+        1           2.65        2.76                  0.26             1.28   
+        2           2.80        3.24                  0.30             2.81   
+        3           3.85        3.49                  0.24             2.18   
+        4           2.80        2.69                  0.39             1.82   
+        
+           Color\_intensity   Hue  OD280\_OD315  Proline  
+        0             5.64  1.04         3.92     1065  
+        1             4.38  1.05         3.40     1050  
+        2             5.68  1.03         3.17     1185  
+        3             7.80  0.86         3.45     1480  
+        4             4.32  1.04         2.93      735  
+\end{Verbatim}
+            
+    \section{Entrenamiento con Random
+Forest}\label{entrenamiento-con-random-forest}
+
+Es una combinación de árboles predictores tal que cada árbol depende de
+los valores de un vector aleatorio probado independientemente y con la
+misma distribución para cada uno de estos. Es una modificación
+sustancial de bagging que construye una larga colección de árboles no
+correlacionados y luego los promedia.
+
+\href{https://es.wikipedia.org/wiki/Random_forest}{Enlace a Wikipedia}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+        
+        \PY{c+c1}{\PYZsh{} Entrenamos con Random Forest}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.ensemble} \PY{k+kn}{import} \PY{n}{RandomForestClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.model\PYZus{}selection} \PY{k+kn}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+        
+        \PY{c+c1}{\PYZsh{} Buscamos los mejores parámetros para el Random Forest}
+        
+        \PY{n}{X} \PY{o}{=} \PY{n}{wine\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{wine\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{my\PYZus{}range} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{21}\PY{p}{)}
+        \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{my\PYZus{}range}\PY{p}{:}
+            \PY{n}{cf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{n}{n}\PY{p}{)}
+            \PY{n}{scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{cf}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            
+        \PY{k}{print} \PY{n}{scores}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0.9097286721706226, 0.9329721362229103, 0.9227726178190574, 0.9116615067079463, 0.9286549707602341, 0.9669590643274854, 0.9614035087719298, 0.9666666666666666, 0.9669590643274854, 0.9616959064327485, 0.9725146198830409, 0.9780701754385965, 0.9663054695562435, 0.9780701754385965, 0.9833333333333334, 0.9725146198830409, 0.9774509803921569, 0.9669590643274855, 0.9672514619883043, 0.9669590643274854]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{my\PYZus{}range}\PY{p}{,} \PY{n}{scores}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random Forest Classifier}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of estimators}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cross\PYZhy{}Validated Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{best\PYZus{}parameter} \PY{o}{=} \PY{n}{scores}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{scores}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+        
+        \PY{n}{cf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{n}{best\PYZus{}parameter}\PY{p}{)}
+        \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Forest accuracy: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ }\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n+nb}{round}\PY{p}{(}\PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{cf}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Random Forest accuracy: 0.97 \%
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Entrenamiento con KNN}\label{entrenamiento-con-knn}
+
+Ajuste de parámetros utilizando \textbf{GridSearchCV}. Utiliza un
+\textbf{grid de parámetros} y los evualará utilizando cross-validation.
+Si tuvieramos una lista de parámetros mucho más larga podría ser
+interesante utilizar \textbf{RandomizedSearchCV}.
+
+\href{https://es.wikipedia.org/wiki/K_vecinos_m\%C3\%A1s_pr\%C3\%B3ximos}{Enlace
+a Wikipedia}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn.model\PYZus{}selection} \PY{k+kn}{import} \PY{n}{GridSearchCV}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.neighbors} \PY{k+kn}{import} \PY{n}{KNeighborsClassifier}
+        
+        \PY{c+c1}{\PYZsh{} parámetros que se buscarán}
+        \PY{n}{k\PYZus{}range} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{31}\PY{p}{)}\PY{p}{)}
+        \PY{n}{weight\PYZus{}options} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} crear el grid de parámetros}
+        \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{n}{k\PYZus{}range}\PY{p}{,} \PY{n}{weights}\PY{o}{=}\PY{n}{weight\PYZus{}options}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{n}{param\PYZus{}grid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'n\_neighbors': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30], 'weights': ['uniform', 'distance']\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} instanciar el grid}
+        \PY{n}{knn} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{p}{)}
+        \PY{n}{grid} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{knn}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} ajustar los datos con el grid}
+        \PY{n}{grid}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} GridSearchCV(cv=10, error\_score='raise',
+               estimator=KNeighborsClassifier(algorithm='auto', leaf\_size=30, metric='minkowski',
+                   metric\_params=None, n\_jobs=1, n\_neighbors=5, p=2,
+                   weights='uniform'),
+               fit\_params=None, iid=True, n\_jobs=1,
+               param\_grid=\{'n\_neighbors': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30], 'weights': ['uniform', 'distance']\},
+               pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score='warn',
+               scoring='accuracy', verbose=0)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} ver los resultados}
+        \PY{n}{grid}\PY{o}{.}\PY{n}{grid\PYZus{}scores\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}David Arroyo\textbackslash{}Anaconda2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}sklearn\textbackslash{}model\_selection\textbackslash{}\_search.py:761: DeprecationWarning: The grid\_scores\_ attribute was deprecated in version 0.18 in favor of the more elaborate cv\_results\_ attribute. The grid\_scores\_ attribute will not be available from 0.20
+  DeprecationWarning)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} [mean: 0.74719, std: 0.09213, params: \{'n\_neighbors': 1, 'weights': 'uniform'\},
+         mean: 0.74719, std: 0.09213, params: \{'n\_neighbors': 1, 'weights': 'distance'\},
+         mean: 0.66854, std: 0.07985, params: \{'n\_neighbors': 2, 'weights': 'uniform'\},
+         mean: 0.74719, std: 0.09213, params: \{'n\_neighbors': 2, 'weights': 'distance'\},
+         mean: 0.71910, std: 0.09516, params: \{'n\_neighbors': 3, 'weights': 'uniform'\},
+         mean: 0.74157, std: 0.08431, params: \{'n\_neighbors': 3, 'weights': 'distance'\},
+         mean: 0.66292, std: 0.08043, params: \{'n\_neighbors': 4, 'weights': 'uniform'\},
+         mean: 0.71910, std: 0.09929, params: \{'n\_neighbors': 4, 'weights': 'distance'\},
+         mean: 0.67416, std: 0.08435, params: \{'n\_neighbors': 5, 'weights': 'uniform'\},
+         mean: 0.71910, std: 0.09286, params: \{'n\_neighbors': 5, 'weights': 'distance'\},
+         mean: 0.66854, std: 0.10230, params: \{'n\_neighbors': 6, 'weights': 'uniform'\},
+         mean: 0.73034, std: 0.07611, params: \{'n\_neighbors': 6, 'weights': 'distance'\},
+         mean: 0.66292, std: 0.09653, params: \{'n\_neighbors': 7, 'weights': 'uniform'\},
+         mean: 0.71910, std: 0.08609, params: \{'n\_neighbors': 7, 'weights': 'distance'\},
+         mean: 0.70225, std: 0.06685, params: \{'n\_neighbors': 8, 'weights': 'uniform'\},
+         mean: 0.73034, std: 0.08262, params: \{'n\_neighbors': 8, 'weights': 'distance'\},
+         mean: 0.69663, std: 0.08316, params: \{'n\_neighbors': 9, 'weights': 'uniform'\},
+         mean: 0.73034, std: 0.07798, params: \{'n\_neighbors': 9, 'weights': 'distance'\},
+         mean: 0.69663, std: 0.06299, params: \{'n\_neighbors': 10, 'weights': 'uniform'\},
+         mean: 0.71910, std: 0.07459, params: \{'n\_neighbors': 10, 'weights': 'distance'\},
+         mean: 0.71348, std: 0.08145, params: \{'n\_neighbors': 11, 'weights': 'uniform'\},
+         mean: 0.73034, std: 0.07061, params: \{'n\_neighbors': 11, 'weights': 'distance'\},
+         mean: 0.69101, std: 0.07632, params: \{'n\_neighbors': 12, 'weights': 'uniform'\},
+         mean: 0.73034, std: 0.07061, params: \{'n\_neighbors': 12, 'weights': 'distance'\},
+         mean: 0.69101, std: 0.06386, params: \{'n\_neighbors': 13, 'weights': 'uniform'\},
+         mean: 0.71910, std: 0.11169, params: \{'n\_neighbors': 13, 'weights': 'distance'\},
+         mean: 0.68539, std: 0.07600, params: \{'n\_neighbors': 14, 'weights': 'uniform'\},
+         mean: 0.72472, std: 0.09843, params: \{'n\_neighbors': 14, 'weights': 'distance'\},
+         mean: 0.71910, std: 0.06255, params: \{'n\_neighbors': 15, 'weights': 'uniform'\},
+         mean: 0.71910, std: 0.10307, params: \{'n\_neighbors': 15, 'weights': 'distance'\},
+         mean: 0.70787, std: 0.07477, params: \{'n\_neighbors': 16, 'weights': 'uniform'\},
+         mean: 0.73596, std: 0.10050, params: \{'n\_neighbors': 16, 'weights': 'distance'\},
+         mean: 0.69663, std: 0.08820, params: \{'n\_neighbors': 17, 'weights': 'uniform'\},
+         mean: 0.72472, std: 0.09843, params: \{'n\_neighbors': 17, 'weights': 'distance'\},
+         mean: 0.71348, std: 0.07268, params: \{'n\_neighbors': 18, 'weights': 'uniform'\},
+         mean: 0.73596, std: 0.10932, params: \{'n\_neighbors': 18, 'weights': 'distance'\},
+         mean: 0.70225, std: 0.10270, params: \{'n\_neighbors': 19, 'weights': 'uniform'\},
+         mean: 0.73034, std: 0.11936, params: \{'n\_neighbors': 19, 'weights': 'distance'\},
+         mean: 0.69663, std: 0.07422, params: \{'n\_neighbors': 20, 'weights': 'uniform'\},
+         mean: 0.74719, std: 0.10724, params: \{'n\_neighbors': 20, 'weights': 'distance'\},
+         mean: 0.70787, std: 0.10793, params: \{'n\_neighbors': 21, 'weights': 'uniform'\},
+         mean: 0.74157, std: 0.12056, params: \{'n\_neighbors': 21, 'weights': 'distance'\},
+         mean: 0.71348, std: 0.07268, params: \{'n\_neighbors': 22, 'weights': 'uniform'\},
+         mean: 0.74719, std: 0.10724, params: \{'n\_neighbors': 22, 'weights': 'distance'\},
+         mean: 0.73034, std: 0.07458, params: \{'n\_neighbors': 23, 'weights': 'uniform'\},
+         mean: 0.74719, std: 0.10724, params: \{'n\_neighbors': 23, 'weights': 'distance'\},
+         mean: 0.70225, std: 0.06373, params: \{'n\_neighbors': 24, 'weights': 'uniform'\},
+         mean: 0.74719, std: 0.10724, params: \{'n\_neighbors': 24, 'weights': 'distance'\},
+         mean: 0.71348, std: 0.07268, params: \{'n\_neighbors': 25, 'weights': 'uniform'\},
+         mean: 0.73596, std: 0.11211, params: \{'n\_neighbors': 25, 'weights': 'distance'\},
+         mean: 0.71348, std: 0.06362, params: \{'n\_neighbors': 26, 'weights': 'uniform'\},
+         mean: 0.73034, std: 0.10564, params: \{'n\_neighbors': 26, 'weights': 'distance'\},
+         mean: 0.70787, std: 0.06971, params: \{'n\_neighbors': 27, 'weights': 'uniform'\},
+         mean: 0.74719, std: 0.11285, params: \{'n\_neighbors': 27, 'weights': 'distance'\},
+         mean: 0.71348, std: 0.06362, params: \{'n\_neighbors': 28, 'weights': 'uniform'\},
+         mean: 0.74157, std: 0.11262, params: \{'n\_neighbors': 28, 'weights': 'distance'\},
+         mean: 0.71348, std: 0.06362, params: \{'n\_neighbors': 29, 'weights': 'uniform'\},
+         mean: 0.74157, std: 0.11262, params: \{'n\_neighbors': 29, 'weights': 'distance'\},
+         mean: 0.71348, std: 0.05857, params: \{'n\_neighbors': 30, 'weights': 'uniform'\},
+         mean: 0.74719, std: 0.11285, params: \{'n\_neighbors': 30, 'weights': 'distance'\}]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} lista con la media de resultados}
+        \PY{n}{grid\PYZus{}mean\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{n}{result}\PY{o}{.}\PY{n}{mean\PYZus{}validation\PYZus{}score} \PY{k}{for} \PY{n}{result} \PY{o+ow}{in} \PY{n}{grid}\PY{o}{.}\PY{n}{grid\PYZus{}scores\PYZus{}}\PY{p}{]}
+        \PY{k}{print}\PY{p}{(}\PY{n}{grid\PYZus{}mean\PYZus{}scores}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0.7471910112359551, 0.7471910112359551, 0.6685393258426966, 0.7471910112359551, 0.7191011235955056, 0.7415730337078652, 0.6629213483146067, 0.7191011235955056, 0.6741573033707865, 0.7191011235955056, 0.6685393258426966, 0.7303370786516854, 0.6629213483146067, 0.7191011235955056, 0.702247191011236, 0.7303370786516854, 0.6966292134831461, 0.7303370786516854, 0.6966292134831461, 0.7191011235955056, 0.7134831460674157, 0.7303370786516854, 0.6910112359550562, 0.7303370786516854, 0.6910112359550562, 0.7191011235955056, 0.6853932584269663, 0.7247191011235955, 0.7191011235955056, 0.7191011235955056, 0.7078651685393258, 0.7359550561797753, 0.6966292134831461, 0.7247191011235955, 0.7134831460674157, 0.7359550561797753, 0.702247191011236, 0.7303370786516854, 0.6966292134831461, 0.7471910112359551, 0.7078651685393258, 0.7415730337078652, 0.7134831460674157, 0.7471910112359551, 0.7303370786516854, 0.7471910112359551, 0.702247191011236, 0.7471910112359551, 0.7134831460674157, 0.7359550561797753, 0.7134831460674157, 0.7303370786516854, 0.7078651685393258, 0.7471910112359551, 0.7134831460674157, 0.7415730337078652, 0.7134831460674157, 0.7415730337078652, 0.7134831460674157, 0.7471910112359551]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}David Arroyo\textbackslash{}Anaconda2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}sklearn\textbackslash{}model\_selection\textbackslash{}\_search.py:761: DeprecationWarning: The grid\_scores\_ attribute was deprecated in version 0.18 in favor of the more elaborate cv\_results\_ attribute. The grid\_scores\_ attribute will not be available from 0.20
+  DeprecationWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} examinar el mejor resultado}
+         \PY{k}{print}\PY{p}{(}\PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.7471910112359551
+\{'n\_neighbors': 1, 'weights': 'uniform'\}
+KNeighborsClassifier(algorithm='auto', leaf\_size=30, metric='minkowski',
+           metric\_params=None, n\_jobs=1, n\_neighbors=1, p=2,
+           weights='uniform')
+
+    \end{Verbatim}
+
+    \section{\texorpdfstring{Entrenamiento con SVC \emph{(Support Vector
+Classification)}}{Entrenamiento con SVC (Support Vector Classification)}}\label{entrenamiento-con-svc-support-vector-classification}
+
+Las \textbf{máquinas de soporte vectorial, máquinas de vectores de
+soporte o máquinas de vector soporte (Support Vector Machines, SVMs)}
+son un conjunto de algoritmos de aprendizaje supervisado desarrollados
+por Vladimir Vapnik y su equipo en los laboratorios AT\&T.
+
+Estos métodos están propiamente relacionados con problemas de
+clasificación y regresión. Dado un conjunto de ejemplos de entrenamiento
+(de muestras) podemos etiquetar las clases y entrenar una SVM para
+construir un modelo que prediga la clase de una nueva muestra.
+Intuitivamente, una SVM es un modelo que representa a los puntos de
+muestra en el espacio, separando las clases a 2 espacios lo más amplios
+posibles mediante un hiperplano de separación definido como el vector
+entre los 2 puntos, de las 2 clases, más cercanos al que se llama
+\textbf{vector soporte}. Cuando las nuevas muestras se ponen en
+correspondencia con dicho modelo, en función de los espacios a los que
+pertenezcan, pueden ser clasificadas a una o la otra clase.
+
+Más formalmente, una SVM construye un hiperplano o conjunto de
+hiperplanos en un espacio de dimensionalidad muy alta (o incluso
+infinita) que puede ser utilizado en problemas de clasificación o
+regresión. Una buena separación entre las clases permitirá una
+clasificación correcta.
+
+\href{https://es.wikipedia.org/wiki/M\%C3\%A1quinas_de_vectores_de_soporte}{Enlace
+a Wikipedia}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn.svm} \PY{k+kn}{import} \PY{n}{SVC}
+         
+         \PY{n}{penalties} \PY{o}{=} \PY{p}{[}\PY{p}{]}  \PY{c+c1}{\PYZsh{} Penalty parameter C of the error term}
+         \PY{n}{my\PYZus{}range} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{21}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{my\PYZus{}range}\PY{p}{:}
+             \PY{n}{penalties}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{o}{/}\PY{l+m+mf}{10.0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Anotar los mejores resultados para cada tipo de
+kernel}\label{anotar-los-mejores-resultados-para-cada-tipo-de-kernel}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{scores\PYZus{}kernels} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{penalty}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{penalty}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{penalty}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{penalty}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}
+         
+         \PY{k}{for} \PY{n}{kernel} \PY{o+ow}{in} \PY{n}{scores\PYZus{}kernels}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{penalty} \PY{o+ow}{in} \PY{n}{penalties}\PY{p}{:}
+                 \PY{n}{svc} \PY{o}{=} \PY{n}{SVC}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{n}{penalty}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{kernel}\PY{o}{=}\PY{n}{kernel}\PY{p}{)}
+                 
+                 \PY{n}{score} \PY{o}{=} \PY{n}{scores\PYZus{}kernels}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{kernel}\PY{p}{)}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{new\PYZus{}score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{svc}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+                 
+                 \PY{k}{if} \PY{n}{new\PYZus{}score} \PY{o}{\PYZgt{}} \PY{n}{score}\PY{p}{:}
+                     \PY{n}{scores\PYZus{}kernels}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{kernel}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{new\PYZus{}score}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{penalty}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{penalty}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{k}{print} \PY{n}{scores\PYZus{}kernels}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'rbf': \{'penalty': 1.2, 'score': 0.4731918644650842\}, 'linear': \{'penalty': 0.1, 'score': 0.9728070175438596\}, 'poly': \{'penalty': 0.1, 'score': 0.9614035087719298\}, 'sigmoid': \{'penalty': 0.1, 'score': 0.3992539559683522\}\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{kernel} \PY{o+ow}{in} \PY{n}{scores\PYZus{}kernels}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{scores\PYZus{}kernels}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{kernel}\PY{p}{)}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+             
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{scores\PYZus{}kernels}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{scores}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Support Vector Classification}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Kernel type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cross\PYZhy{}Validated Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} Text(0,0.5,u'Cross-Validated Accuracy')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Kernel \PYZsq{}linear\PYZsq{} es el que mejor resultado ofrece}
+         \PY{n}{svc} \PY{o}{=} \PY{n}{SVC}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{n}{scores\PYZus{}kernels}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{penalty}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{kernel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SVC accuracy: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ }\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n+nb}{round}\PY{p}{(}\PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{svc}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+SVC accuracy: 0.97 \%
+
+    \end{Verbatim}
+
+    \section{Entrenamiento con AdaBoost}\label{entrenamiento-con-adaboost}
+
+\textbf{Boosting} es un meta-algoritmo de aprendizaje automático que
+reduce el sesgo y varianza en un contexto de aprendizaje supervisado.
+Boosting está basado en el cuestionamiento planteado por Kearns y
+Valiant (1988, 1989): ¿Puede un conjunto de clasificadores débiles crear
+un clasificador robusto? Un clasificador débil está definido para ser un
+clasificador el cuál está solo débilmente correlacionado con la
+clasificación correcta (el mismo clasifica mejor que un un clasificador
+aleatorio). En contraste, un clasificador robusto es un clasificador que
+tiene un mejor desempeño que el de un clasificador débil, ya que sus
+clasificaciones se aproximan más a las verdaderas clases.
+
+\href{https://es.wikipedia.org/wiki/Boosting}{Enlace a Wikipedia}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn.ensemble} \PY{k+kn}{import} \PY{n}{AdaBoostClassifier}
+         
+         \PY{n}{n\PYZus{}estimators} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{70}\PY{p}{)}
+         \PY{n}{scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{n\PYZus{}estimators}\PY{p}{:}
+             \PY{n}{ada} \PY{o}{=} \PY{n}{AdaBoostClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{n}{i}\PY{p}{)}
+             \PY{n}{scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{i}\PY{p}{:} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{ada}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n}{y\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{scores}\PY{p}{]}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{p}{,} \PY{n}{y\PYZus{}scores}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AdaBoost Classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Maximum number of estimators at which boosting is terminated}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cross\PYZhy{}Validated Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AdaBoost accuracy: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n+nb}{round}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{y\PYZus{}scores}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+AdaBoost accuracy: 0.874900\%
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n}{scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{learning\PYZus{}rate}\PY{p}{:}
+             \PY{n}{ada} \PY{o}{=} \PY{n}{AdaBoostClassifier}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{n}{i}\PY{p}{)}
+             \PY{n}{scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{i}\PY{p}{:} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{ada}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{y\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{scores}\PY{p}{]}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{p}{,} \PY{n}{y\PYZus{}scores}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AdaBoost Classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Learning rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cross\PYZhy{}Validated Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AdaBoost accuracy: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n+nb}{round}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{y\PYZus{}scores}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+AdaBoost accuracy: 0.874900\%
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Buscamos los mejores hiperparámetros utilizando
+GridSearchCV}\label{buscamos-los-mejores-hiperparuxe1metros-utilizando-gridsearchcv}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{c+c1}{\PYZsh{} crear el grid de parámetros}
+         \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{n}{learning\PYZus{}rate}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{n}{n\PYZus{}estimators}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{n}{param\PYZus{}grid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'n\_estimators': [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69], 'learning\_rate': [1, 2, 3, 4, 5]\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{c+c1}{\PYZsh{} instanciar el grid}
+         \PY{n}{ada} \PY{o}{=} \PY{n}{AdaBoostClassifier}\PY{p}{(}\PY{p}{)}
+         \PY{n}{grid} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{ada}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{c+c1}{\PYZsh{} ajustar los datos con el grid}
+         \PY{n}{grid}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}84}]:} GridSearchCV(cv=10, error\_score='raise',
+                estimator=AdaBoostClassifier(algorithm='SAMME.R', base\_estimator=None,
+                   learning\_rate=1.0, n\_estimators=50, random\_state=None),
+                fit\_params=None, iid=True, n\_jobs=1,
+                param\_grid=\{'n\_estimators': [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69], 'learning\_rate': [1, 2, 3, 4, 5]\},
+                pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score='warn',
+                scoring='accuracy', verbose=0)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{c+c1}{\PYZsh{} ver los resultados}
+         \PY{n}{grid}\PY{o}{.}\PY{n}{grid\PYZus{}scores\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}David Arroyo\textbackslash{}Anaconda2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}sklearn\textbackslash{}model\_selection\textbackslash{}\_search.py:761: DeprecationWarning: The grid\_scores\_ attribute was deprecated in version 0.18 in favor of the more elaborate cv\_results\_ attribute. The grid\_scores\_ attribute will not be available from 0.20
+  DeprecationWarning)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}85}]:} [mean: 0.87079, std: 0.14268, params: \{'n\_estimators': 50, 'learning\_rate': 1\},
+          mean: 0.86517, std: 0.14524, params: \{'n\_estimators': 51, 'learning\_rate': 1\},
+          mean: 0.87079, std: 0.14268, params: \{'n\_estimators': 52, 'learning\_rate': 1\},
+          mean: 0.87079, std: 0.14268, params: \{'n\_estimators': 53, 'learning\_rate': 1\},
+          mean: 0.87079, std: 0.14268, params: \{'n\_estimators': 54, 'learning\_rate': 1\},
+          mean: 0.87079, std: 0.14268, params: \{'n\_estimators': 55, 'learning\_rate': 1\},
+          mean: 0.87079, std: 0.14268, params: \{'n\_estimators': 56, 'learning\_rate': 1\},
+          mean: 0.87079, std: 0.14268, params: \{'n\_estimators': 57, 'learning\_rate': 1\},
+          mean: 0.87079, std: 0.14268, params: \{'n\_estimators': 58, 'learning\_rate': 1\},
+          mean: 0.87079, std: 0.14268, params: \{'n\_estimators': 59, 'learning\_rate': 1\},
+          mean: 0.87640, std: 0.14203, params: \{'n\_estimators': 60, 'learning\_rate': 1\},
+          mean: 0.87079, std: 0.14268, params: \{'n\_estimators': 61, 'learning\_rate': 1\},
+          mean: 0.87079, std: 0.14268, params: \{'n\_estimators': 62, 'learning\_rate': 1\},
+          mean: 0.87079, std: 0.14268, params: \{'n\_estimators': 63, 'learning\_rate': 1\},
+          mean: 0.87079, std: 0.14268, params: \{'n\_estimators': 64, 'learning\_rate': 1\},
+          mean: 0.87079, std: 0.14268, params: \{'n\_estimators': 65, 'learning\_rate': 1\},
+          mean: 0.86517, std: 0.14524, params: \{'n\_estimators': 66, 'learning\_rate': 1\},
+          mean: 0.87079, std: 0.14268, params: \{'n\_estimators': 67, 'learning\_rate': 1\},
+          mean: 0.87079, std: 0.14268, params: \{'n\_estimators': 68, 'learning\_rate': 1\},
+          mean: 0.87079, std: 0.14268, params: \{'n\_estimators': 69, 'learning\_rate': 1\},
+          mean: 0.83708, std: 0.16630, params: \{'n\_estimators': 50, 'learning\_rate': 2\},
+          mean: 0.82584, std: 0.20424, params: \{'n\_estimators': 51, 'learning\_rate': 2\},
+          mean: 0.87640, std: 0.14631, params: \{'n\_estimators': 52, 'learning\_rate': 2\},
+          mean: 0.84831, std: 0.20033, params: \{'n\_estimators': 53, 'learning\_rate': 2\},
+          mean: 0.83708, std: 0.15675, params: \{'n\_estimators': 54, 'learning\_rate': 2\},
+          mean: 0.82584, std: 0.20163, params: \{'n\_estimators': 55, 'learning\_rate': 2\},
+          mean: 0.85955, std: 0.14527, params: \{'n\_estimators': 56, 'learning\_rate': 2\},
+          mean: 0.80337, std: 0.21927, params: \{'n\_estimators': 57, 'learning\_rate': 2\},
+          mean: 0.82584, std: 0.16486, params: \{'n\_estimators': 58, 'learning\_rate': 2\},
+          mean: 0.78090, std: 0.21033, params: \{'n\_estimators': 59, 'learning\_rate': 2\},
+          mean: 0.84831, std: 0.16349, params: \{'n\_estimators': 60, 'learning\_rate': 2\},
+          mean: 0.78090, std: 0.20791, params: \{'n\_estimators': 61, 'learning\_rate': 2\},
+          mean: 0.87640, std: 0.18063, params: \{'n\_estimators': 62, 'learning\_rate': 2\},
+          mean: 0.83146, std: 0.20564, params: \{'n\_estimators': 63, 'learning\_rate': 2\},
+          mean: 0.83708, std: 0.16815, params: \{'n\_estimators': 64, 'learning\_rate': 2\},
+          mean: 0.76966, std: 0.20141, params: \{'n\_estimators': 65, 'learning\_rate': 2\},
+          mean: 0.85393, std: 0.16178, params: \{'n\_estimators': 66, 'learning\_rate': 2\},
+          mean: 0.82584, std: 0.20254, params: \{'n\_estimators': 67, 'learning\_rate': 2\},
+          mean: 0.84831, std: 0.16906, params: \{'n\_estimators': 68, 'learning\_rate': 2\},
+          mean: 0.77528, std: 0.19968, params: \{'n\_estimators': 69, 'learning\_rate': 2\},
+          mean: 0.74157, std: 0.21030, params: \{'n\_estimators': 50, 'learning\_rate': 3\},
+          mean: 0.81461, std: 0.17853, params: \{'n\_estimators': 51, 'learning\_rate': 3\},
+          mean: 0.82022, std: 0.17783, params: \{'n\_estimators': 52, 'learning\_rate': 3\},
+          mean: 0.76966, std: 0.18470, params: \{'n\_estimators': 53, 'learning\_rate': 3\},
+          mean: 0.76966, std: 0.22821, params: \{'n\_estimators': 54, 'learning\_rate': 3\},
+          mean: 0.76966, std: 0.15949, params: \{'n\_estimators': 55, 'learning\_rate': 3\},
+          mean: 0.76404, std: 0.20462, params: \{'n\_estimators': 56, 'learning\_rate': 3\},
+          mean: 0.84831, std: 0.18418, params: \{'n\_estimators': 57, 'learning\_rate': 3\},
+          mean: 0.79775, std: 0.18402, params: \{'n\_estimators': 58, 'learning\_rate': 3\},
+          mean: 0.76966, std: 0.17769, params: \{'n\_estimators': 59, 'learning\_rate': 3\},
+          mean: 0.83146, std: 0.17918, params: \{'n\_estimators': 60, 'learning\_rate': 3\},
+          mean: 0.83146, std: 0.17588, params: \{'n\_estimators': 61, 'learning\_rate': 3\},
+          mean: 0.77528, std: 0.20722, params: \{'n\_estimators': 62, 'learning\_rate': 3\},
+          mean: 0.78090, std: 0.18564, params: \{'n\_estimators': 63, 'learning\_rate': 3\},
+          mean: 0.76966, std: 0.20673, params: \{'n\_estimators': 64, 'learning\_rate': 3\},
+          mean: 0.81461, std: 0.19020, params: \{'n\_estimators': 65, 'learning\_rate': 3\},
+          mean: 0.82584, std: 0.19575, params: \{'n\_estimators': 66, 'learning\_rate': 3\},
+          mean: 0.79775, std: 0.17918, params: \{'n\_estimators': 67, 'learning\_rate': 3\},
+          mean: 0.79213, std: 0.22219, params: \{'n\_estimators': 68, 'learning\_rate': 3\},
+          mean: 0.78652, std: 0.17127, params: \{'n\_estimators': 69, 'learning\_rate': 3\},
+          mean: 0.68539, std: 0.19108, params: \{'n\_estimators': 50, 'learning\_rate': 4\},
+          mean: 0.61798, std: 0.19621, params: \{'n\_estimators': 51, 'learning\_rate': 4\},
+          mean: 0.61798, std: 0.14859, params: \{'n\_estimators': 52, 'learning\_rate': 4\},
+          mean: 0.70225, std: 0.18989, params: \{'n\_estimators': 53, 'learning\_rate': 4\},
+          mean: 0.58427, std: 0.17450, params: \{'n\_estimators': 54, 'learning\_rate': 4\},
+          mean: 0.65169, std: 0.21216, params: \{'n\_estimators': 55, 'learning\_rate': 4\},
+          mean: 0.63483, std: 0.17414, params: \{'n\_estimators': 56, 'learning\_rate': 4\},
+          mean: 0.68539, std: 0.24032, params: \{'n\_estimators': 57, 'learning\_rate': 4\},
+          mean: 0.58989, std: 0.11365, params: \{'n\_estimators': 58, 'learning\_rate': 4\},
+          mean: 0.64607, std: 0.16751, params: \{'n\_estimators': 59, 'learning\_rate': 4\},
+          mean: 0.61236, std: 0.18569, params: \{'n\_estimators': 60, 'learning\_rate': 4\},
+          mean: 0.67978, std: 0.18133, params: \{'n\_estimators': 61, 'learning\_rate': 4\},
+          mean: 0.64607, std: 0.17723, params: \{'n\_estimators': 62, 'learning\_rate': 4\},
+          mean: 0.61798, std: 0.22227, params: \{'n\_estimators': 63, 'learning\_rate': 4\},
+          mean: 0.63483, std: 0.13968, params: \{'n\_estimators': 64, 'learning\_rate': 4\},
+          mean: 0.65169, std: 0.18620, params: \{'n\_estimators': 65, 'learning\_rate': 4\},
+          mean: 0.57303, std: 0.15953, params: \{'n\_estimators': 66, 'learning\_rate': 4\},
+          mean: 0.63483, std: 0.20435, params: \{'n\_estimators': 67, 'learning\_rate': 4\},
+          mean: 0.61798, std: 0.16365, params: \{'n\_estimators': 68, 'learning\_rate': 4\},
+          mean: 0.60112, std: 0.19128, params: \{'n\_estimators': 69, 'learning\_rate': 4\},
+          mean: 0.62360, std: 0.19397, params: \{'n\_estimators': 50, 'learning\_rate': 5\},
+          mean: 0.53371, std: 0.16632, params: \{'n\_estimators': 51, 'learning\_rate': 5\},
+          mean: 0.55056, std: 0.19022, params: \{'n\_estimators': 52, 'learning\_rate': 5\},
+          mean: 0.62360, std: 0.16392, params: \{'n\_estimators': 53, 'learning\_rate': 5\},
+          mean: 0.53371, std: 0.13603, params: \{'n\_estimators': 54, 'learning\_rate': 5\},
+          mean: 0.57303, std: 0.20700, params: \{'n\_estimators': 55, 'learning\_rate': 5\},
+          mean: 0.61236, std: 0.17284, params: \{'n\_estimators': 56, 'learning\_rate': 5\},
+          mean: 0.56742, std: 0.15366, params: \{'n\_estimators': 57, 'learning\_rate': 5\},
+          mean: 0.58427, std: 0.22669, params: \{'n\_estimators': 58, 'learning\_rate': 5\},
+          mean: 0.62360, std: 0.16392, params: \{'n\_estimators': 59, 'learning\_rate': 5\},
+          mean: 0.59551, std: 0.20484, params: \{'n\_estimators': 60, 'learning\_rate': 5\},
+          mean: 0.58427, std: 0.20125, params: \{'n\_estimators': 61, 'learning\_rate': 5\},
+          mean: 0.64045, std: 0.19183, params: \{'n\_estimators': 62, 'learning\_rate': 5\},
+          mean: 0.55056, std: 0.16233, params: \{'n\_estimators': 63, 'learning\_rate': 5\},
+          mean: 0.56742, std: 0.19391, params: \{'n\_estimators': 64, 'learning\_rate': 5\},
+          mean: 0.60112, std: 0.13999, params: \{'n\_estimators': 65, 'learning\_rate': 5\},
+          mean: 0.53371, std: 0.13603, params: \{'n\_estimators': 66, 'learning\_rate': 5\},
+          mean: 0.58427, std: 0.20859, params: \{'n\_estimators': 67, 'learning\_rate': 5\},
+          mean: 0.57303, std: 0.12561, params: \{'n\_estimators': 68, 'learning\_rate': 5\},
+          mean: 0.53371, std: 0.13603, params: \{'n\_estimators': 69, 'learning\_rate': 5\}]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{c+c1}{\PYZsh{} lista con la media de resultados}
+         \PY{n}{grid\PYZus{}mean\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{n}{result}\PY{o}{.}\PY{n}{mean\PYZus{}validation\PYZus{}score} \PY{k}{for} \PY{n}{result} \PY{o+ow}{in} \PY{n}{grid}\PY{o}{.}\PY{n}{grid\PYZus{}scores\PYZus{}}\PY{p}{]}
+         \PY{k}{print}\PY{p}{(}\PY{n}{grid\PYZus{}mean\PYZus{}scores}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0.8707865168539326, 0.8651685393258427, 0.8707865168539326, 0.8707865168539326, 0.8707865168539326, 0.8707865168539326, 0.8707865168539326, 0.8707865168539326, 0.8707865168539326, 0.8707865168539326, 0.8764044943820225, 0.8707865168539326, 0.8707865168539326, 0.8707865168539326, 0.8707865168539326, 0.8707865168539326, 0.8651685393258427, 0.8707865168539326, 0.8707865168539326, 0.8707865168539326, 0.8370786516853933, 0.8258426966292135, 0.8764044943820225, 0.848314606741573, 0.8370786516853933, 0.8258426966292135, 0.8595505617977528, 0.8033707865168539, 0.8258426966292135, 0.7808988764044944, 0.848314606741573, 0.7808988764044944, 0.8764044943820225, 0.8314606741573034, 0.8370786516853933, 0.7696629213483146, 0.8539325842696629, 0.8258426966292135, 0.848314606741573, 0.7752808988764045, 0.7415730337078652, 0.8146067415730337, 0.8202247191011236, 0.7696629213483146, 0.7696629213483146, 0.7696629213483146, 0.7640449438202247, 0.848314606741573, 0.797752808988764, 0.7696629213483146, 0.8314606741573034, 0.8314606741573034, 0.7752808988764045, 0.7808988764044944, 0.7696629213483146, 0.8146067415730337, 0.8258426966292135, 0.797752808988764, 0.7921348314606742, 0.7865168539325843, 0.6853932584269663, 0.6179775280898876, 0.6179775280898876, 0.702247191011236, 0.5842696629213483, 0.651685393258427, 0.6348314606741573, 0.6853932584269663, 0.5898876404494382, 0.6460674157303371, 0.6123595505617978, 0.6797752808988764, 0.6460674157303371, 0.6179775280898876, 0.6348314606741573, 0.651685393258427, 0.5730337078651685, 0.6348314606741573, 0.6179775280898876, 0.601123595505618, 0.6235955056179775, 0.5337078651685393, 0.550561797752809, 0.6235955056179775, 0.5337078651685393, 0.5730337078651685, 0.6123595505617978, 0.5674157303370787, 0.5842696629213483, 0.6235955056179775, 0.5955056179775281, 0.5842696629213483, 0.6404494382022472, 0.550561797752809, 0.5674157303370787, 0.601123595505618, 0.5337078651685393, 0.5842696629213483, 0.5730337078651685, 0.5337078651685393]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}David Arroyo\textbackslash{}Anaconda2\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}sklearn\textbackslash{}model\_selection\textbackslash{}\_search.py:761: DeprecationWarning: The grid\_scores\_ attribute was deprecated in version 0.18 in favor of the more elaborate cv\_results\_ attribute. The grid\_scores\_ attribute will not be available from 0.20
+  DeprecationWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{c+c1}{\PYZsh{} examinar el mejor resultado}
+         \PY{k}{print}\PY{p}{(}\PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.8764044943820225
+\{'n\_estimators': 60, 'learning\_rate': 1\}
+AdaBoostClassifier(algorithm='SAMME.R', base\_estimator=None, learning\_rate=1,
+          n\_estimators=60, random\_state=None)
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
